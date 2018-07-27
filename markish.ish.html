@@ -1,0 +1,569 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta lang=en charset="UTF-8">
+<body>
+<h1><p>Markish Is Simply HTML</p></h1>
+<p>Instead of HTML looking like this:</p>
+
+<div class='eg'><pre class='demo-left'>See the &lt;a href='http://www.csszengarden.com'>CSS Zen Garden&lt;/a> web-site.</pre>
+<style>
+  table.demo {width:100%; margin-left:5pt; }
+  .demo-left {font-family: monospace; background:whitesmoke;
+	   margin: 5pt; padding: 5pt; }
+  td.demo-left {white-space:pre;  width:50%;}
+  td.demo-right {margin:5pt; padding: 5pt; vertical-align:top;}
+</style>
+</div>
+<p>Markish writes it like this:</p>
+
+<div class='eg'><pre class='demo-left'>See the zen[CSS Zen Garden] web-site.
+
+zen = &lt;a href='http://www.csszengarden.com'></pre></div>
+<p>A markup element is written as a label (e.g. <code style='background:whitesmoke'>zen</code>) with its content text in brackets. The label can be any word the author chooses, and the content can be in parentheses or square brackets.</p>
+
+<p>The label can be defined later to represent an HTML element (as in the second line). The definition can be anywhere in the source text, and it will not appear in the HTML.</p>
+
+<p>By using labels all the HTML annotations can be moved out of the prose narrative.</p>
+
+<p>Markish is simply HTML written a little differently.</p>
+
+<p>This has several advantages:</p>
+<ol><li><p>The author can focus on writing a good story, with text that is easy to read.</p></li>
+<li><p>The markup elements only need simple labels that are meaningful to the author.</p></li>
+<li><p>For the first draft there is no need to worry about HTML, or any other markup language.</p></li>
+<li><p>The HTML element that a label stands for can be defined later. This is a good separation of concerns.</p></li>
+<li><p>HTML itself is easy to learn, and there are lots of good tutorials.</p></li>
+<li><p>The labels are defined directly in the source text, so the translation into HTML is direct and easy to understand.</p></li></ol>
+
+<h2><p>Inline Elements</p></h2>
+<p>The author may choose to use a label that is the same name as a standard HTML tag:</p>
+
+<div class='demo'><table class='demo'>
+  <tr>
+	<td class='demo-left'>Some i(italics) and b(bold) text.
+
+Or u[underline] and code[x = y+1].
+
+i = &lt;i>
+b = &lt;b>
+u = &lt;u>
+code = &lt;code></td>
+	<td class='demo-right'><p>Some <i>italics</i> and <b>bold</b> text.</p>
+
+<p>Or <u>underline</u> and <code>x = y+1</code>.</p>
+
+</td>
+  </tr>
+</table>
+</div>
+
+<p>Or symbols:</p>
+
+<div class='demo'><table class='demo'>
+  <tr>
+	<td class='demo-left'>Some *(emphasis) and **(strong) text.
+
+Or _[underline] and `[x = y+1].
+
+*  = &lt;em>
+** = &lt;strong>
+_  = &lt;u>
+`  = &lt;code></td>
+	<td class='demo-right'><p>Some <em>emphasis</em> and <strong>strong</strong> text.</p>
+
+<p>Or <u>underline</u> and <code>x = y+1</code>.</p>
+
+</td>
+  </tr>
+</table>
+</div>
+<p>Or any label that suits the author:</p>
+
+<div class='demo'><table class='demo'>
+  <tr>
+	<td class='demo-left'>Some red[italics] and blue[bold] text.
+
+Or box[underline] and js[x = y+1].
+
+H_(2)0 and E=MC^(2)
+
+red  = &lt;i class='red'>
+blue = &lt;b class='blue'>
+box = &lt;u class='box'>
+js = &lt;code class='js'>
+_  = &lt;sub>
+^  = &lt;sup></td>
+	<td class='demo-right'><p>Some <i class='red'>italics</i> and <b class='blue'>bold</b> text.</p>
+
+<p>Or <u class='box'>underline</u> and <code class='js'>x = y+1</code>.</p>
+
+<p>H<sub>2</sub>0 and E=MC<sup>2</sup></p>
+
+</td>
+  </tr>
+</table>
+</div>
+<style>i.red {color:red}
+b.blue {color:blue}
+u.box {background:linen; border:thin solid grey}
+code.js {background:whitesmoke;}</style>
+
+<p>A label can contain any characters other than white-space or bracket characters. There are no rules, the author can define any label to represent any HTML element.</p>
+
+<p>A label will normally appear as a word in a sentence (e.g after a space), but if you need to start a label as a suffix then the label must begin with a symbol character (not a letter or a digit).</p>
+
+<p>For example:</p>
+
+<div class='demo'><table class='demo'>
+  <tr>
+	<td class='demo-left'>Mark-i(ish)
+
+Mark--i(ish)
+
+-i = &lt;i></td>
+	<td class='demo-right'><p>Mark<i>ish</i></p>
+
+<p>Mark-<i>ish</i></p>
+
+</td>
+  </tr>
+</table>
+</div>
+<p>Or define a do-nothing label to wrap around any other labels:</p>
+
+<div class='demo'><table class='demo'>
+  <tr>
+	<td class='demo-left'>Mark.(i(ish))
+
+i = &lt;i>
+. = &lt;span></td>
+	<td class='demo-right'><p>Mark<span><i>ish</i></span></p>
+
+</td>
+  </tr>
+</table>
+</div>
+<p>The label must be immediately before the brackets, if there is a space then it is literal text and not a markup element:</p>
+
+<div class='demo'><table class='demo'>
+  <tr>
+	<td class='demo-left'>This em[is emphasis].
+
+This em [is not emphasis].
+
+em = &lt;em></td>
+	<td class='demo-right'><p>This <em>is emphasis</em>.</p>
+
+<p>This em [is not emphasis].</p>
+
+</td>
+  </tr>
+</table>
+</div>
+
+<h2><p>Block Elements</p></h2>
+<p>For block elements the label is any first word followed by a tab character, or two or more white-space characters.</p>
+
+<p>For example:</p>
+
+<div class='demo'><table class='demo'>
+  <tr>
+	<td class='demo-left'>##  Hello World
+
+This is a paragraph since the
+first word is not a label.
+
+## = &lt;h2></td>
+	<td class='demo-right'><h2><p>Hello World</p></h2>
+<p>This is a paragraph since the
+first word is not a label.</p>
+
+</td>
+  </tr>
+</table>
+</div>
+<p>A block starts after the label and can contain any number of lines of indented content. Indented lines can start with a tab or space character. The content will be extracted by trimming off a tab character or up to four space characters.</p>
+
+<p>For example:</p>
+
+<div class='demo'><table class='demo'>
+  <tr>
+	<td class='demo-left'>nb   This line has an nb label.
+
+note
+  ###	A Note Heading
+
+  The note contains these lines
+  of indented content..
+
+  Down to: The next paragraph..
+
+The next paragraph..
+
+nb   = &lt;div class='nb'>
+note = &lt;div class='note'>
+###  = &lt;h3 class='###'></td>
+	<td class='demo-right'><div class='nb'><p>This line has an nb label.</p></div>
+<div class='note'><h3 class='###'><p>A Note Heading</p></h3>
+<p>The note contains these lines
+of indented content..</p>
+
+<p>Down to: The next paragraph..</p></div>
+<p>The next paragraph..</p>
+
+</td>
+  </tr>
+</table>
+</div>
+<style>.note {margin: 0pt 5pt; margin-right:20pt; padding: 0pt 5pt; border:thin solid gray;}</style>
+<p>A block ends at a line that is not indented and not blank.</p>
+
+<p>A paragraph is a block that starts with any first word that is not a label (i.e the first word is not followed by a tab or multiple spaces).</p>
+
+<p>A paragraph can contain any number of lines, with any indentation. A paragraph ends at a blank line, or a line that starts with a label.</p>
+
+<div class='demo'><table class='demo'>
+  <tr>
+	<td class='demo-left'>A paragraph.
+>
+    ##	Hello World
+
+    This is a em[paragraph] since
+    the first word is not a label.
+
+    ## this ## is not a label here.
+
+>  = &lt;blockquote>
+## = &lt;h2 class='##'>
+em = &lt;em></td>
+	<td class='demo-right'><p>A paragraph.</p>
+<blockquote><h2 class='##'><p>Hello World</p></h2>
+<p>This is a <em>paragraph</em> since
+the first word is not a label.</p>
+
+<p>## this ## is not a label here.</p></blockquote>
+</td>
+  </tr>
+</table>
+</div>
+<p>The next example defines labels for HTML list elements:</p>
+
+<div class='demo'><table class='demo'>
+  <tr>
+	<td class='demo-left'>1..
+    +	The first point.
+
+    +	The second point.
+
+    *..
+        -	With a couple of bullet points
+        -	Like this...
+
+    +	And the third point....
+
+1..  = &lt;ol>
+*..  = &lt;ul>
++    = &lt;li class='+'>
+-    = &lt;li class='-'></td>
+	<td class='demo-right'><ol><li class='+'><p>The first point.</p></li>
+<li class='+'><p>The second point.</p></li>
+<ul><li class='-'><p>With a couple of bullet points</p></li><li class='-'><p>Like this...</p></li></ul>
+<li class='+'><p>And the third point....</p></li></ol>
+</td>
+  </tr>
+</table>
+</div>
+
+<h2><p>Character Entities</p></h2>
+<p>Ideally an author should be able to type any required character from the key-board. But if that is not possible then an HTML character entity can be used. In Markish HTML is normally rendered as literal text, so an HTML character entity can not be expressed directly.</p>
+
+<p>To enable the use of character entities Markish has special labels called sigils (magic symbols).</p>
+
+<p>Any symbol character can be defined as a sigil label without requiring any content in brackets. They are defined in parentheses to distinguish them from normal labels:</p>
+
+<div class='demo'><table class='demo'>
+  <tr>
+	<td class='demo-left'>``It's in `nice' quotes''
+
+(``) = &amp;ldquo;
+('') = &amp;rdquo;
+(`)  = &amp;lsquo;
+(')  = &amp;rsquo;</td>
+	<td class='demo-right'><p>&ldquo;It&rsquo;s in &lsquo;nice&rsquo; quotes&rdquo;</p>
+
+</td>
+  </tr>
+</table>
+</div>
+<p>This example defines quote marks that mimic the quote marks used in LaTeX.</p>
+
+<p>The sigil label word must start with a symbolic character, but any characters other than space or brackets may follow:</p>
+
+<div class='demo'><table class='demo'>
+  <tr>
+	<td class='demo-left'>:look: Good for emojis :hat:
+
+(:look:) = &amp;#x1F449;
+(:hat:)  = &amp;#x1F407;</td>
+	<td class='demo-right'><p>&#x1F449; Good for emojis &#x1F407;</p>
+
+</td>
+  </tr>
+</table>
+</div>
+<p>Or for some mathematics:</p>
+
+<div class='demo'><table class='demo'>
+  <tr>
+	<td class='demo-left'>.A x, y .in .R: f x -> y
+
+(->) = &amp;rarr;
+(.A) = &amp;forall;
+(.R) = &amp;real;
+(.in)= &amp;isin;</td>
+	<td class='demo-right'><p>&forall; x, y &isin; &real;: f x &rarr; y</p>
+
+</td>
+  </tr>
+</table>
+</div>
+<p>You should now be able to write any HTML in Markish using your own label definitions.</p>
+
+<p>Markish can be extended beyond HTML, but fundamentally it is nothing more than a way to keep the HTML annotations from cluttering up your work.</p>
+
+
+<h2><p>Content Transforms</p></h2>
+<p>Most HTML elements accept nested HTML inside their content text, and likewise the content text in Markish markup elements accepts nested Markish.</p>
+
+<p>But the HTML parser has special rules for some elements. The <code style='background:whitesmoke'>&lt;style></code> and <code style='background:whitesmoke'>&lt;script></code> elements are not expected to contain nested HTML, they accept any content text as literal text (other than their own end tag).</p>
+
+<p>The content of a Markish element is determined by the HTML element that it is defined to represent. Labels defined as <code style='background:whitesmoke'>&lt;style></code> and <code style='background:whitesmoke'>&lt;script></code> elements will deliver their content as plain text.</p>
+
+<div class='demo'><table class='demo'>
+  <tr>
+	<td class='demo-left'>Some blue[words and red[letters] here].
+
+style
+    .red {color:red}
+    .blue {color:blue}
+
+style = &lt;style>
+red   = &lt;span class=red>
+blue  = &lt;span class=blue></td>
+	<td class='demo-right'><p>Some <span class=blue>words and <span class=red>letters</span> here</span>.</p>
+
+<style>.red {color:red}
+.blue {color:blue}</style>
+</td>
+  </tr>
+</table>
+</div>
+<p>A <code style='background:whitesmoke'>&lt;script></code> element also works as expected:</p>
+
+<div class='demo'><table class='demo'>
+  <tr>
+	<td class='demo-left'>script
+	console.log('Goodbye world &lt;/script>')
+
+script = &lt;script></td>
+	<td class='demo-right'><script>console.log('Goodbye world <\/script>')</script>
+</td>
+  </tr>
+</table>
+</div>
+<p>The <code style='background:whitesmoke'>script</code> label will deliver the plain text content for the browser to run as JavaScript. The output can be seen in the browser console log.</p>
+
+<p>In HTML this would not work without escaping the HTML <code style='background:whitesmoke'>&lt;/script></code> end tag, but in Markish the content text in a block can be absolutely anything (and the <code style='background:whitesmoke'>&lt;/script></code> is escaped from the HTML parser as <code style='background:whitesmoke'>&lt;\/script></code>).</p>
+
+<p>If required a label definition can specify an explicit transform for the content text. The name of the required transform is appended after the HTML element.</p>
+
+<p>A <code style='background:whitesmoke'>text</code> transform will treat the content as literal text, as against the default of a recursive markup transform. For example:</p>
+
+<div class='demo'><table class='demo'>
+  <tr>
+	<td class='demo-left'>txt
+    txt
+        a&lt;b c>d
+
+txt = &lt;pre> text</td>
+	<td class='demo-right'><pre>txt
+    a&lt;b c>d</pre>
+</td>
+  </tr>
+</table>
+</div>
+<p>Without the <code style='background:whitesmoke'>text</code> transform the <code style='background:whitesmoke'>txt</code> block would allow nested markup (since an HTML <code style='background:whitesmoke'>&lt;pre></code> element accepts nested HTML content). The <code style='background:whitesmoke'>text</code> transform will escape the HTML syntax (in HTML the <code style='background:whitesmoke'>a&lt;b c>d</code> contains a <code style='background:whitesmoke'>&lt;b></code> element).</p>
+
+<p>In Markish any HTML syntax in the source text will normally be rendered as literal text (i.e. the <code style='background:whitesmoke'>&amp;</code> and <code style='background:whitesmoke'>&lt;</code> character will be escaped as <code style='background:whitesmoke'>&amp;amp;</code> and <code style='background:whitesmoke'>&amp;lt;</code>). If you wish to use HTML then you will have to put it into an element that will pass it directly on as raw HTML:</p>
+
+<div class='demo'><table class='demo'>
+  <tr>
+	<td class='demo-left'>Normal H&lt;sub>2&lt;/sub>O text.
+
+Or html[H&lt;sub>2&lt;/sub>O] here.
+
+html = &lt;span class='html'> raw</td>
+	<td class='demo-right'><p>Normal H&lt;sub>2&lt;/sub>O text.</p>
+
+<p>Or <span class='html'>H<sub>2</sub>O</span> here.</p>
+
+</td>
+  </tr>
+</table>
+</div>
+<p>The <code style='background:whitesmoke'>raw</code> transform will pass content text on as-is for the browser to render as HTML.</p>
+
+<p>A library of transform functions can be used to extend Markish with domain specific content translators.</p>
+
+<h2><p>Editing Tools</p></h2>
+<p>An editing tool can scan your document to find all the Markish labels that have not yet been defined (other than sigil labels), and write a list of suggested label definitions for you.</p>
+
+<p>A clever tool could make a good guess in many cases, for example if the label is the same as a standard HTML tag name. A tool could also recognize special format conventions in label words, and numeric labels could be re-numbered as necessary. The process could be interactive. There are lots of interesting possibilities.</p>
+
+<p>The end result is a list of label definitions. A tool can check that every label has a definition, and add new definitions if necessary. But it must never change any existing definitions since they may have been manually edited.</p>
+
+<p>The label definitions can be collected together at the end of the document, or they may be interspersed closer to the labels they define. The source text is now fully defined in terms of HTML.</p>
+
+<p>If the author only needs a menu of pre-defined labels then these definitions could be pasted into the end or the source text. No editing tool may be needed.</p>
+
+<p>To translate Markish into an HTML document the translator will read the label definitions and generate standard HTML. This is straight forward and easy to understand. It is quite a separate task from the work of the editing tools.</p>
+
+<p>There are no rules built into the Markish HTML translator, the labels can be anything. The translator only needs to read the label definitions.</p>
+
+
+<h2><p>Extending Beyond HTML</p></h2>
+<p>Sometimes HTML is not sufficient. For example to embed mathematics, or a diagram languages, or any other domain specific application language.</p>
+
+<p>Markish allows transform functions to re-write the content text. It may be a simple built-in transform primitive, or it may be an interface to an external application package.</p>
+
+<p>For example, an extension module can be used to translate special markup for a table:</p>
+
+<div class='demo'><table class='demo'>
+  <tr>
+	<td class='demo-left'>table
+    A        |   B   | C
+    :--------|:-----:|---:
+    a1       |  b1   | c1
+    a2       |  b2   | c2
+    hot[a3]  |  b3   | cool[c3]
+
+table = &lt;table class=md-table> ./lib/table-md.js</td>
+	<td class='demo-right'><table class=md-table><tr><th class='left'>A</th><th class='center'>B</th><th class='right'>C</th></tr>
+<tr><td class='left'>a1</td><td class='center'>b1</td><td class='right'>c1</td></tr>
+<tr><td class='left'>a2</td><td class='center'>b2</td><td class='right'>c2</td></tr>
+<tr><td class='left'><span class=hot>a3</span></td><td class='center'>b3</td><td class='right'><span class=cool>c3</span></td></tr>
+</table>
+</td>
+  </tr>
+</table>
+</div>
+
+<style>table {margin: 0pt 20pt; border-collapse:collapse;}
+.md-table th, .md-table td
+   {padding: 0pt 20pt; border:thin solid grey;}
+td.left {text-align:left}
+td.center {text-align:center}
+td.right {text-align:right}
+
+.hot {color:red;}
+.cool {color:green;}</style>
+<p>Or to embed a simple diagram notation:</p>
+
+<div class='demo'><table class='demo'>
+  <tr>
+	<td class='demo-left'>diag
+                .-----------.
+    content --->| Transform |---> HTML
+                '-----------'
+
+diag = &lt;div class='diag'> ./lib/boxit.js box</td>
+	<td class='demo-right'><div class='diag'><pre class=my_box>            &boxdr;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxdl;
+content &boxh;&boxh;&boxh;&#9654;&boxv; Transform &boxvr;&boxh;&boxh;&boxh;&#9654; HTML
+            &boxur;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxul;</pre><style>
+  pre.my_box {line-height:1; font-size:smaller;
+	  font-family: Menlo, Consolas, Courier New, monospace}
+</style>
+</div>
+</td>
+  </tr>
+</table>
+</div>
+<p>A library of transform functions can be used to extend Markish to translate any content type.</p>
+
+
+<h2><p>Extending Markish Syntax</p></h2>
+<p>A sigil label can define a transform to parse the source text after the sigil. This allows new markup syntax to be defined:</p>
+
+<div class='demo'><table class='demo'>
+  <tr>
+	<td class='demo-left'>"Nice quote marks."
+
+A link &lt;http://example.com>.
+
+This is *emphasis* and this is **strong emphasis**.
+
+This is code `x = y*z*3`
+
+Or more `` `*` `` for backtick content.
+
+(") = &lt;span class='quote'> quote
+(&lt;) = &lt;span class='autolink'> autolink
+(*) = &lt;em> ./lib/md-mimic.js
+(**) = &lt;strong> ./lib/md-mimic.js
+(`) = &lt;code> ./lib/md-mimic.js</td>
+	<td class='demo-right'><p><span class='quote'>&ldquo;Nice quote marks.&rdquo;</span></p>
+
+<p>A link <span class='autolink'><a href='http://example.com'>http://example.com</a></span>.</p>
+
+<p>This is <em>emphasis</em> and this is <strong>strong emphasis</strong>.</p>
+
+<p>This is code <code>x = y*z*3</code></p>
+
+<p>Or more <code>`*` </code> for backtick content.</p>
+
+</td>
+  </tr>
+</table>
+</div>
+<p>Thus a sigil can define its own markup syntax, as you can see in the examples that mimic some of the Markdown syntax.</p>
+
+<p>A library of transform functions can be used to extend Markish with any desired markup syntax.</p>
+
+<h2><p>Conclusion</p></h2>
+<p>The focus for Markish is to enable <em>any</em> HTML to be expressed in a clean easy to read way.</p>
+
+<p>HTML is here to stay, and to maintain the millions of web pages browsers go to great lengths to remain backward compatible. HTML is not difficult to learn, so it should be the markup language of choice. But writing HTML just gets too messy.</p>
+
+<p>The main objective for Markish is simply to allow the HTML annotations to be moved out of the way. This is done with user defined labels, following the <a href='https://en.wikipedia.org/wiki/David_Wheeler_(computer_scientist)'>old adage</a> that <span class='quote'>&ldquo;Any problem in Computer Science can be solved with another level of indirection&rdquo;</span>.</p>
+
+
+<p>In Markish the syntax is minimal, but the labels are extensible, like XML (and HTML) tags.</p>
+
+<p>The elegance of Markish lies in the ability to express any HTML with the author's own labels. To quote <a href= 'https://blog.roman-gonzalez.ca/post/10372759155/elegance-and-familiarity-are-orthogonal'>Rick Hinkley</a>: Elegance and familiarity are orthogonal.</p>
+
+
+<p>Transform functions allow Markish to be extended to translate content text in any way the author requires. This enables Markish to embed any other formats, notations, or domain specific languages.</p>
+
+<p>The markup syntax itself can also be extended using sigils with custom syntax extensions.</p>
+
+
+<div hidden>Label Definitions -----------------------------------------------------</div>
+
+
+
+
+
+
+
+<style>body {
+	font-family: 'Helvetica Neue', Helvetica, Arial, serif;
+	font-size: 1em;
+	line-height: 1.5;
+	color: #505050;
+}
+
+blockquote { border-left: thick solid lightgrey; padding-left:15pt;}</style>
+</body>
+</html>

@@ -1,0 +1,438 @@
+#	Markish Is Simply HTML
+
+Instead of HTML looking like this:
+
+eg
+    See the <a href='http://www.csszengarden.com'>CSS Zen Garden</a> web-site.
+
+Markish writes it like this:
+
+eg
+    See the zen[CSS Zen Garden] web-site.
+
+    zen = <a href='http://www.csszengarden.com'>
+
+A markup element is written as a label (e.g. `zen`) with its content text in brackets. The label can be any word the author chooses, and the content can be in parentheses or square brackets.
+
+The label can be defined later to represent an HTML element (as in the second line). The definition can be anywhere in the source text, and it will not appear in the HTML.
+
+By using labels all the HTML annotations can be moved out of the prose narrative.
+
+Markish is simply HTML written a little differently.
+
+This has several advantages:
+1..
+	+	The author can focus on writing a good story, with text that is easy to read.
+
+	+	The markup elements only need simple labels that are meaningful to the author.
+
+	+	For the first draft there is no need to worry about HTML, or any other markup language.
+
+	+	The HTML element that a label stands for can be defined later. This is a good separation of concerns.
+
+	+	HTML itself is easy to learn, and there are lots of good tutorials.
+
+	+	The labels are defined directly in the source text, so the translation into HTML is direct and easy to understand.
+
+1.. = <ol>
++   = <li>
+
+##	Inline Elements
+
+The author may choose to use a label that is the same name as a standard HTML tag:
+
+demo
+    Some i(italics) and b(bold) text.
+
+    Or u[underline] and code[x = y+1].
+
+    i = <i>
+    b = <b>
+    u = <u>
+    code = <code>
+
+
+Or symbols:
+
+demo
+    Some *(emphasis) and **(strong) text.
+
+    Or _[underline] and `[x = y+1].
+
+    *  = <em>
+    ** = <strong>
+    _  = <u>
+    `  = <code>
+
+Or any label that suits the author:
+
+demo
+    Some red[italics] and blue[bold] text.
+
+    Or box[underline] and js[x = y+1].
+
+	H_(2)0 and E=MC^(2)
+
+    red  = <i class='red'>
+    blue = <b class='blue'>
+    box = <u class='box'>
+    js = <code class='js'>
+	_  = <sub>
+	^  = <sup>
+
+style
+    i.red {color:red}
+    b.blue {color:blue}
+	u.box {background:linen; border:thin solid grey}
+    code.js {background:whitesmoke;}
+
+
+A label can contain any characters other than white-space or bracket characters. There are no rules, the author can define any label to represent any HTML element.
+
+A label will normally appear as a word in a sentence (e.g after a space), but if you need to start a label as a suffix then the label must begin with a symbol character (not a letter or a digit).
+
+For example:
+
+demo
+	Mark-i(ish)
+
+	Mark--i(ish)
+
+	-i = <i>
+
+Or define a do-nothing label to wrap around any other labels:
+
+demo
+	Mark.(i(ish))
+
+	i = <i>
+	. = <span>
+
+The label must be immediately before the brackets, if there is a space then it is literal text and not a markup element:
+
+demo
+	This em[is emphasis].
+
+	This em [is not emphasis].
+
+	em = <em>
+
+
+##	Block Elements
+
+For block elements the label is any first word followed by a tab character, or two or more white-space characters.
+
+For example:
+
+demo
+    ##  Hello World
+
+    This is a paragraph since the
+    first word is not a label.
+
+    ## = <h2>
+
+A block starts after the label and can contain any number of lines of indented content. Indented lines can start with a tab or space character. The content will be extracted by trimming off a tab character or up to four space characters.
+
+For example:
+
+demo
+	nb   This line has an nb label.
+
+	note
+	  ###	A Note Heading
+
+	  The note contains these lines
+	  of indented content..
+
+	  Down to: The next paragraph..
+
+	The next paragraph..
+
+	nb   = <div class='nb'>
+	note = <div class='note'>
+	###  = <h3 class='###'>
+
+style
+    .note {margin: 0pt 5pt; margin-right:20pt; padding: 0pt 5pt; border:thin solid gray;}
+
+A block ends at a line that is not indented and not blank.
+
+A paragraph is a block that starts with any first word that is not a label (i.e the first word is not followed by a tab or multiple spaces).
+
+A paragraph can contain any number of lines, with any indentation. A paragraph ends at a blank line, or a line that starts with a label.
+
+demo
+    A paragraph.
+    >
+	    ##	Hello World
+
+	    This is a em[paragraph] since
+	    the first word is not a label.
+
+	    ## this ## is not a label here.
+
+    >  = <blockquote>
+    ## = <h2 class='##'>
+    em = <em>
+
+The next example defines labels for HTML list elements:
+
+demo
+    1..
+        +	The first point.
+
+        +	The second point.
+
+        *..
+            -	With a couple of bullet points
+            -	Like this...
+
+        +	And the third point....
+
+    1..  = <ol>
+    *..  = <ul>
+    +    = <li class='+'>
+    -    = <li class='-'>
+
+
+##	Character Entities
+
+Ideally an author should be able to type any required character from the key-board. But if that is not possible then an HTML character entity can be used. In Markish HTML is normally rendered as literal text, so an HTML character entity can not be expressed directly.
+
+To enable the use of character entities Markish has special labels called sigils (magic symbols).
+
+Any symbol character can be defined as a sigil label without requiring any content in brackets. They are defined in parentheses to distinguish them from normal labels:
+
+demo
+	``It's in `nice' quotes''
+
+	(``) = &ldquo;
+	('') = &rdquo;
+	(`)  = &lsquo;
+	(')  = &rsquo;
+
+This example defines quote marks that mimic the quote marks used in LaTeX.
+
+The sigil label word must start with a symbolic character, but any characters other than space or brackets may follow:
+
+demo
+    :look: Good for emojis :hat:
+
+    (:look:) = &#x1F449;
+    (:hat:)  = &#x1F407;
+
+Or for some mathematics:
+
+demo
+	.A x, y .in .R: f x -> y
+
+	(->) = &rarr;
+	(.A) = &forall;
+	(.R) = &real;
+	(.in)= &isin;
+
+You should now be able to write any HTML in Markish using your own label definitions.
+
+Markish can be extended beyond HTML, but fundamentally it is nothing more than a way to keep the HTML annotations from cluttering up your work.
+
+
+##	Content Transforms
+
+Most HTML elements accept nested HTML inside their content text, and likewise the content text in Markish markup elements accepts nested Markish.
+
+But the HTML parser has special rules for some elements. The `<style>` and `<script>` elements are not expected to contain nested HTML, they accept any content text as literal text (other than their own end tag).
+
+The content of a Markish element is determined by the HTML element that it is defined to represent. Labels defined as `<style>` and `<script>` elements will deliver their content as plain text.
+
+demo
+    Some blue[words and red[letters] here].
+
+    style
+        .red {color:red}
+        .blue {color:blue}
+
+	style = <style>
+    red   = <span class=red>
+    blue  = <span class=blue>
+
+A `<script>` element also works as expected:
+
+demo
+	script
+		console.log('Goodbye world </script>')
+
+	script = <script>
+
+The `script` label will deliver the plain text content for the browser to run as JavaScript. The output can be seen in the browser console log.
+
+In HTML this would not work without escaping the HTML `</script>` end tag, but in Markish the content text in a block can be absolutely anything (and the `</script>` is escaped from the HTML parser as `<\/script>`).
+
+If required a label definition can specify an explicit transform for the content text. The name of the required transform is appended after the HTML element.
+
+A code[text] transform will treat the content as literal text, as against the default of a recursive markup transform. For example:
+
+demo
+	txt
+	    txt
+	        a<b c>d
+
+	txt = <pre> text
+
+Without the `text` transform the `txt` block would allow nested markup (since an HTML `<pre>` element accepts nested HTML content). The `text` transform will escape the HTML syntax (in HTML the `a<b c>d` contains a `<b>` element).
+
+In Markish any HTML syntax in the source text will normally be rendered as literal text (i.e. the code[&] and code[<] character will be escaped as code[&amp;] and code[&lt;]). If you wish to use HTML then you will have to put it into an element that will pass it directly on as raw HTML:
+
+demo
+    Normal H<sub>2</sub>O text.
+
+    Or html[H<sub>2</sub>O] here.
+
+    html = <span class='html'> raw
+
+The code[raw] transform will pass content text on as-is for the browser to render as HTML.
+
+A library of transform functions can be used to extend Markish with domain specific content translators.
+
+##	Editing Tools
+
+An editing tool can scan your document to find all the Markish labels that have not yet been defined (other than sigil labels), and write a list of suggested label definitions for you.
+
+A clever tool could make a good guess in many cases, for example if the label is the same as a standard HTML tag name. A tool could also recognize special format conventions in label words, and numeric labels could be re-numbered as necessary. The process could be interactive. There are lots of interesting possibilities.
+
+The end result is a list of label definitions. A tool can check that every label has a definition, and add new definitions if necessary. But it must never change any existing definitions since they may have been manually edited.
+
+The label definitions can be collected together at the end of the document, or they may be interspersed closer to the labels they define. The source text is now fully defined in terms of HTML.
+
+If the author only needs a menu of pre-defined labels then these definitions could be pasted into the end or the source text. No editing tool may be needed.
+
+To translate Markish into an HTML document the translator will read the label definitions and generate standard HTML. This is straight forward and easy to understand. It is quite a separate task from the work of the editing tools.
+
+There are no rules built into the Markish HTML translator, the labels can be anything. The translator only needs to read the label definitions.
+
+
+##	Extending Beyond HTML
+
+Sometimes HTML is not sufficient. For example to embed mathematics, or a diagram languages, or any other domain specific application language.
+
+Markish allows transform functions to re-write the content text. It may be a simple built-in transform primitive, or it may be an interface to an external application package.
+
+For example, an extension module can be used to translate special markup for a table:
+
+demo
+    table
+	    A        |   B   | C
+	    :--------|:-----:|---:
+	    a1       |  b1   | c1
+	    a2       |  b2   | c2
+	    hot[a3]  |  b3   | cool[c3]
+
+    table = <table class=md-table> ./lib/table-md.js
+
+hot = <span class=hot>
+cool = <span class=cool>
+
+style
+    table {margin: 0pt 20pt; border-collapse:collapse;}
+    .md-table th, .md-table td
+       {padding: 0pt 20pt; border:thin solid grey;}
+    td.left {text-align:left}
+    td.center {text-align:center}
+    td.right {text-align:right}
+
+    .hot {color:red;}
+    .cool {color:green;}
+
+Or to embed a simple diagram notation:
+
+demo
+	diag
+	                .-----------.
+	    content --->| Transform |---> HTML
+	                '-----------'
+
+	diag = <div class='diag'> ./lib/boxit.js box
+
+A library of transform functions can be used to extend Markish to translate any content type.
+
+
+##	Extending Markish Syntax
+
+A sigil label can define a transform to parse the source text after the sigil. This allows new markup syntax to be defined:
+
+demo
+    "Nice quote marks."
+
+	A link <http://example.com>.
+
+	This is *emphasis* and this is **strong emphasis**.
+
+	This is code `x = y*z*3`
+
+    Or more `` `*` `` for backtick content.
+
+    (") = <span class='quote'> quote
+	(<) = <span class='autolink'> autolink
+	(*) = <em> ./lib/md-mimic.js
+	(**) = <strong> ./lib/md-mimic.js
+	(`) = <code> ./lib/md-mimic.js
+
+Thus a sigil can define its own markup syntax, as you can see in the examples that mimic some of the Markdown syntax.
+
+A library of transform functions can be used to extend Markish with any desired markup syntax.
+
+##	Conclusion
+
+The focus for Markish is to enable *any* HTML to be expressed in a clean easy to read way.
+
+HTML is here to stay, and to maintain the millions of web pages browsers go to great lengths to remain backward compatible. HTML is not difficult to learn, so it should be the markup language of choice. But writing HTML just gets too messy.
+
+The main objective for Markish is simply to allow the HTML annotations to be moved out of the way. This is done with user defined labels, following the dw[old adage] that "Any problem in Computer Science can be solved with another level of indirection".
+
+dw = <a href='https://en.wikipedia.org/wiki/David_Wheeler_(computer_scientist)'>
+
+In Markish the syntax is minimal, but the labels are extensible, like XML (and HTML) tags.
+
+The elegance of Markish lies in the ability to express any HTML with the author's own labels. To quote rh[Rick Hinkley]: Elegance and familiarity are orthogonal.
+
+rh = <a href= 'https://blog.roman-gonzalez.ca/post/10372759155/elegance-and-familiarity-are-orthogonal'>
+
+Transform functions allow Markish to be extended to translate content text in any way the author requires. This enables Markish to embed any other formats, notations, or domain specific languages.
+
+The markup syntax itself can also be extended using sigils with custom syntax extensions.
+
+
+//  Label Definitions -----------------------------------------------------
+
+// = <div hidden> text
+
+# = <h1>
+## = <h2>
+### = <h3>
+
+i = <i>
+b = <b>
+u = <u>
+code = <code style='background:whitesmoke'> text
+
+(") = <span class='quote'> quote
+
+(*) = <em> ./lib/md-mimic.js
+(**) = <strong> ./lib/md-mimic.js
+(`) = <code style='background:whitesmoke'> ./lib/md-mimic.js
+
+eg = <div class='eg'> ./lib/demo.js eg
+demo = <div class='demo'> ./lib/demo.js demo
+demo-html = <div class='demo'> ./lib/demo.js demo_html
+
+style = <style> text
+
+style
+	body {
+		font-family: 'Helvetica Neue', Helvetica, Arial, serif;
+		font-size: 1em;
+		line-height: 1.5;
+		color: #505050;
+	}
+
+	blockquote { border-left: thick solid lightgrey; padding-left:15pt;}
